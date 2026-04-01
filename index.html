@@ -288,7 +288,9 @@
       width: 100%;
     }
 
-    .ledger-card {
+    /* Shared Card Logic */
+    .ledger-card,
+    .series-block {
       display: flex;
       background: rgba(245, 240, 232, 0.04);
       border: 1px solid rgba(201, 168, 76, 0.2);
@@ -296,6 +298,11 @@
       max-width: 900px;
       box-shadow: 12px 12px 25px rgba(0, 0, 0, 0.35);
       transition: all 0.4s ease;
+    }
+
+    .series-block {
+      background: rgba(201, 168, 76, 0.03);
+      border: 1px solid rgba(201, 168, 76, 0.3);
     }
 
     .ledger-content {
@@ -333,6 +340,7 @@
       text-transform: uppercase;
       font-weight: bold;
       letter-spacing: 1px;
+      white-space: nowrap;
     }
 
     .btn-burn {
@@ -368,14 +376,6 @@
 
     .entry-group:hover .edit-pen {
       opacity: 1;
-    }
-
-    .series-block {
-      border: 1px solid rgba(201, 168, 76, 0.3);
-      background: rgba(201, 168, 76, 0.03);
-      padding: 40px;
-      width: 100%;
-      max-width: 900px;
     }
 
     .book-title {
@@ -467,7 +467,8 @@
         font-size: 1.1rem;
       }
 
-      .ledger-card {
+      .ledger-card,
+      .series-block {
         flex-direction: column;
       }
 
@@ -687,9 +688,12 @@
                     <div style="font-style:italic; opacity:0.6; font-size:1.2rem;">${item.isSeries ? 'Series' : 'Book'} by ${item.author}</div>
                     <div style="margin-top:14px;">${item.genres.map(g => `<span class="tag">${g}</span>`).join('')}</div>
                     ${item.isSeries ? `<div style="margin-top:20px; display:flex; flex-direction:column; gap:10px">
-                        ${item.books.map((b, i) => `<div class="ledger-card ${b.read ? 'read-state' : ''}" style="min-width:auto; background:rgba(0,0,0,0.2)">
+                        ${item.books.map((b, i) => `
+                        <div class="ledger-card ${b.read ? 'read-state' : ''}" style="min-width:auto; background:rgba(0,0,0,0.2); flex-direction: row;">
                             <div class="ledger-content" style="padding:15px 20px; font-family: 'Playfair Display'; font-size: 1.3rem;">${b.title}</div>
-                            <div class="ledger-actions" style="padding:10px 15px; min-width: 100px;"><button class="action-btn" onclick="toggleBookRead(${item.id}, ${i})">${b.read ? 'Unread' : 'Read'}</button></div>
+                            <div class="ledger-actions" style="padding:10px 15px; min-width: 120px;">
+                                <button class="action-btn" onclick="toggleBookRead(${item.id}, ${i})">${b.read ? 'Unread' : 'Read'}</button>
+                            </div>
                         </div>`).join('')}
                     </div>` : ''}
                 </div>
