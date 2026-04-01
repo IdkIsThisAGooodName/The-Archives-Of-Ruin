@@ -90,14 +90,6 @@
       color: var(--gold);
     }
 
-    .subtitle {
-      font-family: 'IM Fell English', serif;
-      font-style: italic;
-      font-size: 1.25rem;
-      color: rgba(245, 240, 232, 0.5);
-      margin-top: 18px;
-    }
-
     .grimoire-form {
       background: rgba(245, 240, 232, 0.03);
       border: 1px solid rgba(201, 168, 76, 0.15);
@@ -233,7 +225,6 @@
       color: white;
     }
 
-    /* --- Cloud & Utility Sync Bar --- */
     .utility-container {
       border: 1px solid rgba(201, 168, 76, 0.2);
       padding: 25px;
@@ -289,7 +280,6 @@
       font-weight: bold;
     }
 
-    /* --- Ledger Cards --- */
     .entry-group {
       margin-bottom: 48px;
       display: flex;
@@ -446,68 +436,80 @@
       background: rgba(201, 168, 76, 0.1);
     }
 
-        /* --- Mobile Responsiveness --- */
-      @media (max-width: 600px) {
-        .container {      
-         padding: 40px 15px;
-       }
-     
-       h1 {
-         font-size: 2.5rem; /* Shrunk from 4.8rem */
-        }
-      
-        .title-label {
-         font-size: 0.7rem;
-          letter-spacing: 0.2em;
-        }
-      
-        .grimoire-form {
-          padding: 25px 20px;
-       }
-     
-       .form-row {
-          grid-template-columns: 1fr; /* Stack inputs vertically instead of side-by-side */
-          gap: 15px;
-       }
-     
-        input, textarea, .btn-commit {
-          padding: 15px;
-          font-size: 1.1rem;
-        }
-      
-       .ledger-card {
-          flex-direction: column; /* Stack the book info and the buttons */
-       }
-     
-       .ledger-content {
-          padding: 20px;
-       }
-     
-       .ledger-actions {
-         flex-direction: row; /* Put buttons side-by-side on mobile */
-         padding: 15px;
-         min-width: unset;
-         border-top: 1px solid rgba(201, 168, 76, 0.2);
-       }
-     
-       .ledger-actions::before {
-         display: none; /* Remove the vertical gold line */
-       }
-     
-       .book-title {
-         font-size: 1.6rem;
-       }
-     
-       .utility-row {
-         flex-direction: column;
-         align-items: stretch;
-       }
-     
-       .sync-input {
-         width: 100%;
-        }
+    /* --- Mobile Responsiveness --- */
+    @media (max-width: 600px) {
+      .container {
+        padding: 40px 15px;
       }
-      
+
+      h1 {
+        font-size: 2.5rem;
+      }
+
+      .title-label {
+        font-size: 0.7rem;
+        letter-spacing: 0.2em;
+      }
+
+      .grimoire-form {
+        padding: 25px 20px;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+        gap: 15px;
+      }
+
+      input,
+      textarea,
+      .btn-commit {
+        padding: 15px;
+        font-size: 1.1rem;
+      }
+
+      .ledger-card {
+        flex-direction: column;
+      }
+
+      .ledger-content {
+        padding: 20px;
+      }
+
+      .ledger-actions {
+        flex-direction: row;
+        padding: 15px;
+        min-width: unset;
+        border-top: 1px solid rgba(201, 168, 76, 0.2);
+      }
+
+      .ledger-actions::before {
+        display: none;
+      }
+
+      .book-title {
+        font-size: 1.6rem;
+      }
+
+      .utility-row {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .sync-input {
+        width: 100%;
+      }
+
+      .tag {
+        font-size: 0.7rem;
+        padding: 3px 8px;
+        margin-right: 5px;
+      }
+
+      .genre-chip {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+      }
+    }
   </style>
 </head>
 
@@ -578,7 +580,6 @@
     const SUPABASE_URL = 'https://mygzhkkmrntzietolyfz.supabase.co';
     const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im15Z3poa2ttcm50emlldG9seWZ6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUwMjk0NTAsImV4cCI6MjA5MDYwNTQ1MH0.aeIRfk0ssNjEnMC-kZTuey5vtd0fV9-nTrZL7JG279k';
 
-    // Rename to sbClient to avoid conflict with library global
     let sbClient = null;
     if (SUPABASE_URL.startsWith('http')) {
       sbClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -588,7 +589,6 @@
     let selectedGenres = [];
     let activeFilter = null;
 
-    // Initialize Database
     const request = indexedDB.open("ArchiveOfRuinV10", 1);
     request.onupgradeneeded = (e) => {
       let d = e.target.result;
@@ -602,7 +602,6 @@
       loadArchive();
     };
 
-    /* --- Utilities --- */
     function toTitleCase(str) { return str ? str.replace(/\b\w/g, char => char.toUpperCase()) : ""; }
     function applyTitleCase(input) {
       const cursor = input.selectionStart;
@@ -612,7 +611,6 @@
 
     function toggleSeriesUI() { document.getElementById('series-ui').style.display = document.getElementById('is-series').checked ? 'block' : 'none'; }
 
-    /* --- Genre Logic --- */
     function addNewGenre() {
       const val = toTitleCase(document.getElementById('new-genre').value.trim());
       if (!val) return;
@@ -649,7 +647,6 @@
       };
     }
 
-    /* --- Core Data Logic --- */
     function saveEntry() {
       const title = document.getElementById('title').value;
       if (!title) return;
@@ -766,20 +763,14 @@
 
     function deleteEntry(id) { if (confirm("Burn record?")) { db.transaction("entries", "readwrite").objectStore("entries").delete(id).onsuccess = () => loadArchive(); } }
 
-    /* --- Cloud Sync Logic --- */
-    function generateID(len = 6) {
-      const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-      let result = '';
-      for (let i = 0; i < len; i++) result += chars.charAt(Math.floor(Math.random() * chars.length));
-      return result;
-    }
-
     async function generateSyncCode() {
       if (!sbClient) return alert("Supabase not configured.");
       const tx = db.transaction(["entries", "genres"], "readonly");
       const entries = await new Promise(r => tx.objectStore("entries").getAll().onsuccess = e => r(e.target.result));
       const genres = await new Promise(r => tx.objectStore("genres").getAll().onsuccess = e => r(e.target.result));
-      const syncId = generateID();
+      const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+      let syncId = '';
+      for (let i = 0; i < 6; i++) syncId += chars.charAt(Math.floor(Math.random() * chars.length));
       const { error } = await sbClient.from('sync_records').insert([{ id: syncId, payload: { entries, genres } }]);
       if (error) return alert("Sync Failed: " + error.message);
       document.getElementById('sync-code-input').value = syncId;
@@ -802,7 +793,6 @@
       }
     }
 
-    /* --- File Import/Export --- */
     function exportArchive() {
       const tx = db.transaction(["entries", "genres"], "readonly");
       const eReq = tx.objectStore("entries").getAll();
@@ -828,7 +818,6 @@
       };
       reader.readAsText(file);
     }
-
   </script>
 </body>
 
