@@ -661,6 +661,68 @@
       };
       reader.readAsText(file);
     }
+
+    /* --- Mobile Responsiveness --- */
+@media (max-width: 600px) {
+  .container {
+    padding: 40px 15px;
+  }
+
+  h1 {
+    font-size: 2.5rem; /* Shrunk from 4.8rem */
+  }
+
+  .title-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+  }
+
+  .grimoire-form {
+    padding: 25px 20px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr; /* Stack inputs vertically instead of side-by-side */
+    gap: 15px;
+  }
+
+  input, textarea, .btn-commit {
+    padding: 15px;
+    font-size: 1.1rem;
+  }
+
+  .ledger-card {
+    flex-direction: column; /* Stack the book info and the buttons */
+  }
+
+  .ledger-content {
+    padding: 20px;
+  }
+
+  .ledger-actions {
+    flex-direction: row; /* Put buttons side-by-side on mobile */
+    padding: 15px;
+    min-width: unset;
+    border-top: 1px solid rgba(201, 168, 76, 0.2);
+  }
+
+  .ledger-actions::before {
+    display: none; /* Remove the vertical gold line */
+  }
+
+  .book-title {
+    font-size: 1.6rem;
+  }
+
+  .utility-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .sync-input {
+    width: 100%;
+  }
+}
   </script>
 </body>
 </html>
