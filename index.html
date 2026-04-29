@@ -218,6 +218,16 @@
       text-transform: uppercase;
       letter-spacing: 3px;
       font-size: 1.15rem;
+      transition: transform 0.1s ease;
+      cursor: pointer;
+    }
+
+    .btn-commit:hover {
+      transform: scale(1.03);
+    }
+
+    .btn-commit:active {
+      transform: scale(0.95);
     }
 
     .btn-update {
@@ -266,8 +276,8 @@
       font-size: 0.85rem;
       text-transform: uppercase;
       letter-spacing: 1px;
-      transition: all 0.2s ease;
-    }
+      transition: all 0.4s ease;
+    } 
 
     .utility-btn:hover {
       background: rgba(201, 168, 76, 0.1);
@@ -295,9 +305,13 @@
       background: rgba(245, 240, 232, 0.04);
       border: 1px solid rgba(201, 168, 76, 0.2);
       width: 100%;
-      max-width: 900px;
+      max-width: 1100px;
       box-shadow: 12px 12px 25px rgba(0, 0, 0, 0.35);
       transition: all 0.4s ease;
+    }
+
+    .ledger-card:hover{
+      background: rgba(245, 240, 232, 0);
     }
 
     .series-block {
@@ -341,6 +355,12 @@
       font-weight: bold;
       letter-spacing: 1px;
       white-space: nowrap;
+      transition: all 0.4s ease;
+    }
+
+    .action-btn:hover{
+      background-color: var(--gold-dim);
+      color: #fff
     }
 
     .btn-burn {
@@ -374,6 +394,11 @@
       box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
     }
 
+    .edit-pen:hover {
+      background-color: var(--gold-dim);
+      color: #fff
+    }
+
     .entry-group:hover .edit-pen {
       opacity: 1;
     }
@@ -397,7 +422,9 @@
       margin-right: 8px;
       display: inline-block;
       margin-top: 5px;
+      cursor: pointer;
     }
+
 
     .read-state {
       opacity: 0.3;
@@ -428,6 +455,11 @@
       cursor: pointer;
       text-transform: uppercase;
       font-size: 0.95rem;
+      transition: all 0.4s ease;
+    }
+
+    .filter-chip:hover{
+      background: rgba(201, 168, 76, 0.1); ;
     }
 
     .filter-chip.active {
@@ -466,7 +498,6 @@
         padding: 15px;
         font-size: 1.1rem;
       }
-
       .ledger-card,
       .series-block {
         flex-direction: column;
