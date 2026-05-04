@@ -62,8 +62,8 @@
     header::after {
       content: '';
       display: block;
-      width: 140px;
-      height: 1px;
+      width: 200px;
+      height: 2px;
       background: linear-gradient(90deg, transparent, var(--gold), transparent);
       margin: 36px auto 0;
     }
@@ -142,9 +142,13 @@
     .checkmark {
       height: 32px;
       width: 32px;
-      background-color: rgba(0, 0, 0, 0.4);
+      background-color: rgba(0, 0, 0, 0.2);
       border: 1px solid var(--gold-dim);
       position: relative;
+    }
+
+    .checkmark:hover {
+      background-color: rgba(var(--gold-dim), 1);
     }
 
     .checkbox-container input:checked~.checkmark {
@@ -196,6 +200,7 @@
       transition: all 0.4s ease;
     }
 
+
     .genre-chip:hover {
       background: rgba(201, 168, 76, 0.1);
     }
@@ -223,7 +228,7 @@
       text-transform: uppercase;
       letter-spacing: 3px;
       font-size: 1.15rem;
-      transition: transform 0.1s ease;
+      transition: transform 0.4s ease;
       cursor: pointer;
     }
 
@@ -236,9 +241,30 @@
     }
 
     .btn-update {
-      background: var(--rust);
+      background: var(--gold-dim);
       color: white;
     }
+
+
+    .btn-cancel {
+      background: transparent;
+      color: var(--crimson);
+      border: 1px solid var(--crimson);
+      transition: transform 0.4s ease;
+    }
+
+    .btn-cancel:hover {
+      background: var(--crimson) !important;
+      color: #fff;
+      border-color: transparent;
+      transform: scale(1.03);
+    }
+
+    .btn-cancel:active {
+      transform: scale(0.95);
+    }
+
+
 
     .utility-container {
       border: 1px solid rgba(201, 168, 76, 0.2);
@@ -315,7 +341,15 @@
       transition: all 0.4s ease;
     }
 
+    .series-block:hover{
+      background: rgba(245, 240, 232, 0.00);
+    }
+
     .ledger-card:hover{
+      background: rgba(245, 240, 232, 0);
+    }
+
+    .edit-pen:hover + .ledger-card + .series-block{
       background: rgba(245, 240, 232, 0);
     }
 
@@ -369,11 +403,13 @@
     }
 
     .btn-burn {
-      border-color: rgba(163, 29, 29, 0.4);
+      border-color: var(--crimson);
+      background: transparent;
       color: var(--crimson);
     }
 
     .btn-burn:hover {
+      border-color:transparent;
       background: var(--crimson);
       color: #fff;
     }
@@ -403,6 +439,15 @@
       background-color: var(--gold-dim);
       color: #fff
     }
+
+    .edit-pen:hover + .ledger-card{
+      background: rgba(245, 240, 232, 0);
+    }
+
+    .edit-pen:hover + .series-block{
+      background: rgba(245, 240, 232, 0);
+    }
+
 
     .entry-group:hover .edit-pen {
       opacity: 1;
@@ -434,6 +479,11 @@
     .read-state {
       opacity: 0.3;
       filter: grayscale(1);
+    }
+
+    .read-state:hover{
+      opacity: 1;
+      filter: none;
     }
 
     .search-wrap input {
@@ -584,17 +634,17 @@
       <input type="hidden" id="edit-id" value="">
       <button class="btn-commit" id="submit-btn" style="margin-top:35px" onclick="saveEntry()">Commit to
         Archive</button>
-      <button class="btn-commit" id="cancel-btn"
-        style="margin-top:16px; display:none; background:transparent; color:var(--gold); border:1px solid var(--gold)"
+      <button class="btn-commit btn-cancel" id="cancel-btn"
+        style="margin-top:16px; display:none; background:transparent"
         onclick="resetForm()">Cancel Edit</button>
     </div>
 
-    <div class="utility-container">
-      <div class="utility-row">
-        <div class="cloud-sync-group">
+    <div class= "utility-container" >
+      <div class= "utility-row">
+        <div class= "cloud-sync-group">
           <button class="utility-btn btn-primary-sync" onclick="generateSyncCode()">Push to Cloud</button>
-          <input type="text" id="sync-code-input" class="sync-input" placeholder="CODE">
-          <button class="utility-btn" onclick="retrieveFromCloud()">Pull</button>
+          <input type="text" id= "sync-code-input" class="sync-input"  placeholder="CODE">
+          <button  class="utility-btn" onclick="retrieveFromCloud()">Pull</button>
         </div>
         <div class="cloud-sync-group">
           <button class="utility-btn" onclick="exportArchive()">Export JSON</button>
