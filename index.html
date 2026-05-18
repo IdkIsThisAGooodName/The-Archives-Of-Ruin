@@ -203,6 +203,7 @@
 
     .genre-chip:hover {
       background: rgba(201, 168, 76, 0.1);
+      transform: scale(1.03);
     }
 
     .genre-chip.selected {
@@ -308,7 +309,7 @@
       text-transform: uppercase;
       letter-spacing: 1px;
       transition: all 0.4s ease;
-    } 
+    }
 
     .utility-btn:hover {
       background: rgba(201, 168, 76, 0.1);
@@ -341,15 +342,15 @@
       transition: all 0.4s ease;
     }
 
-    .series-block:hover{
+    .series-block:hover {
       background: rgba(245, 240, 232, 0.00);
     }
 
-    .ledger-card:hover{
+    .ledger-card:hover {
       background: rgba(245, 240, 232, 0);
     }
 
-    .edit-pen:hover + .ledger-card + .series-block{
+    .edit-pen:hover+.ledger-card+.series-block {
       background: rgba(245, 240, 232, 0);
     }
 
@@ -397,7 +398,7 @@
       transition: all 0.4s ease;
     }
 
-    .action-btn:hover{
+    .action-btn:hover {
       background-color: var(--gold-dim);
       color: #fff
     }
@@ -409,7 +410,7 @@
     }
 
     .btn-burn:hover {
-      border-color:transparent;
+      border-color: transparent;
       background: var(--crimson);
       color: #fff;
     }
@@ -440,11 +441,11 @@
       color: #fff
     }
 
-    .edit-pen:hover + .ledger-card{
+    .edit-pen:hover+.ledger-card {
       background: rgba(245, 240, 232, 0);
     }
 
-    .edit-pen:hover + .series-block{
+    .edit-pen:hover+.series-block {
       background: rgba(245, 240, 232, 0);
     }
 
@@ -481,7 +482,7 @@
       filter: grayscale(1);
     }
 
-    .read-state:hover{
+    .read-state:hover {
       opacity: 1;
       filter: none;
     }
@@ -513,8 +514,9 @@
       transition: all 0.4s ease;
     }
 
-    .filter-chip:hover{
-      background: rgba(201, 168, 76, 0.1); ;
+    .filter-chip:hover {
+      background: rgba(201, 168, 76, 0.1);
+      ;
     }
 
     .filter-chip.active {
@@ -525,9 +527,10 @@
 
     /* --- Mobile Responsiveness --- */
     @media (max-width: 600px) {
-      .container {
-        padding: 40px 15px;
+      .ledger-card, .series-block {
+      padding: 0 0 10px 0;
       }
+
 
       h1 {
         font-size: 2.5rem;
@@ -553,6 +556,7 @@
         padding: 15px;
         font-size: 1.1rem;
       }
+
       .ledger-card,
       .series-block {
         flex-direction: column;
@@ -564,9 +568,11 @@
 
       .ledger-actions {
         flex-direction: row;
-        padding: 15px;
+        padding: 15px 24px;
         min-width: unset;
         border-top: 1px solid rgba(201, 168, 76, 0.2);
+        margin: 0 20px;
+        border-radius: 0;
       }
 
       .ledger-actions::before {
@@ -635,16 +641,15 @@
       <button class="btn-commit" id="submit-btn" style="margin-top:35px" onclick="saveEntry()">Commit to
         Archive</button>
       <button class="btn-commit btn-cancel" id="cancel-btn"
-        style="margin-top:16px; display:none; background:transparent"
-        onclick="resetForm()">Cancel Edit</button>
+        style="margin-top:16px; display:none; background:transparent" onclick="resetForm()">Cancel Edit</button>
     </div>
 
-    <div class= "utility-container" >
-      <div class= "utility-row">
-        <div class= "cloud-sync-group">
+    <div class="utility-container">
+      <div class="utility-row">
+        <div class="cloud-sync-group">
           <button class="utility-btn btn-primary-sync" onclick="generateSyncCode()">Push to Cloud</button>
-          <input type="text" id= "sync-code-input" class="sync-input"  placeholder="CODE">
-          <button  class="utility-btn" onclick="retrieveFromCloud()">Pull</button>
+          <input type="text" id="sync-code-input" class="sync-input" placeholder="CODE">
+          <button class="utility-btn" onclick="retrieveFromCloud()">Pull</button>
         </div>
         <div class="cloud-sync-group">
           <button class="utility-btn" onclick="exportArchive()">Export JSON</button>
