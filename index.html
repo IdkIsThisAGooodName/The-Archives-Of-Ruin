@@ -148,7 +148,7 @@
     }
 
     .checkmark:hover {
-      background-color: rgba(var(--gold-dim), 1);
+      background-color: var(--gold-dim);
     }
 
     .checkbox-container input:checked~.checkmark {
@@ -179,36 +179,45 @@
       margin-bottom: 16px;
     }
 
+    /* =========================================================================
+       GENRE CHIPS STYLE (FORM LEVEL)
+       ========================================================================= */
     .genre-list {
       display: flex;
       flex-wrap: wrap;
       gap: 14px;
       margin-bottom: 32px;
       padding: 24px;
-      background: rgba(0, 0, 0, 0.1);
-      border: 1px solid rgba(201, 168, 76, 0.1);
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(201, 168, 76, 0.15);
     }
 
     .genre-chip {
-      background: transparent;
+      font-family: 'Crimson Pro', serif;
+      background: rgba(25, 20, 17, 0.6);
+      color: rgba(245, 240, 232, 0.6);
       padding: 10px 20px;
       font-size: 1.05rem;
-      border: 1px solid rgba(201, 168, 76, 0.3);
+      border: 1px solid rgba(201, 168, 76, 0.25);
       cursor: pointer;
       text-transform: uppercase;
       letter-spacing: 1px;
-      transition: all 0.4s ease;
+      transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
     }
 
-
     .genre-chip:hover {
-      background: rgba(201, 168, 76, 0.1);
-      transform: scale(1.03);
+      background: #191411;
+      border-color: var(--gold);
+      color: var(--gold);
+      transform: translateY(-1px);
+      box-shadow: 0 0 10px rgba(201, 168, 76, 0.2);
     }
 
     .genre-chip.selected {
-      background: var(--gold-dim);
-      color: var(--ink);
+      background: rgba(201, 168, 76, 0.08);
+      border-color: var(--gold);
+      color: var(--gold);
+      box-shadow: 0 0 12px rgba(201, 168, 76, 0.15);
     }
 
     .series-input-area {
@@ -218,54 +227,64 @@
       margin-top: 24px;
     }
 
+    /* =========================================================================
+       BUTTON STYLE OVERHAUL (THE UNIFIED GRIMOIRE VIBE)
+       ========================================================================= */
+    .btn-commit,
+    .utility-btn,
+    .action-btn,
+    .switch-btn,
+    .deck-nav-btn,
+    .filter-chip {
+      font-family: 'Crimson Pro', serif;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+      outline: none;
+    }
+
     .btn-commit {
-      background: var(--gold-dim);
-      color: var(--ink);
-      border: none;
+      background: rgba(25, 20, 17, 0.85);
+      color: var(--gold);
+      border: 1px solid var(--gold-dim);
       padding: 22px;
       cursor: pointer;
       font-weight: bold;
       width: 100%;
-      text-transform: uppercase;
-      letter-spacing: 3px;
       font-size: 1.15rem;
-      transition: transform 0.4s ease;
-      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
     }
 
     .btn-commit:hover {
-      transform: scale(1.03);
+      color: #fff;
+      border-color: var(--gold);
+      background: #191411;
+      transform: translateY(-2px);
+      box-shadow: 0 0 15px rgba(201, 168, 76, 0.3);
     }
 
     .btn-commit:active {
-      transform: scale(0.95);
+      transform: translateY(1px);
     }
 
     .btn-update {
-      background: var(--gold-dim);
-      color: white;
+      border-color: var(--gold);
+      color: #fff;
+      background: rgba(138, 111, 53, 0.2);
     }
-
 
     .btn-cancel {
       background: transparent;
       color: var(--crimson);
-      border: 1px solid var(--crimson);
-      transition: transform 0.4s ease;
+      border: 1px solid rgba(163, 29, 29, 0.5);
     }
 
     .btn-cancel:hover {
-      background: var(--crimson) !important;
+      background: rgba(163, 29, 29, 0.1) !important;
       color: #fff;
-      border-color: transparent;
-      transform: scale(1.03);
+      border-color: var(--crimson);
+      box-shadow: 0 0 15px rgba(163, 29, 29, 0.4);
     }
-
-    .btn-cancel:active {
-      transform: scale(0.95);
-    }
-
-
 
     .utility-container {
       border: 1px solid rgba(201, 168, 76, 0.2);
@@ -297,66 +316,131 @@
       letter-spacing: 2px;
       text-transform: uppercase;
       background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(201, 168, 76, 0.2);
+      color: var(--parchment);
     }
 
     .utility-btn {
-      background: transparent;
-      border: 1px solid var(--gold-dim);
-      color: var(--gold);
-      padding: 10px 20px;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(201, 168, 76, 0.3);
+      color: var(--gold-dim);
+      padding: 11px 20px;
       cursor: pointer;
       font-size: 0.85rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      transition: all 0.4s ease;
     }
 
     .utility-btn:hover {
-      background: rgba(201, 168, 76, 0.1);
+      background: #191411;
+      border-color: var(--gold);
+      color: var(--gold);
+      box-shadow: 0 0 12px rgba(201, 168, 76, 0.25);
     }
 
     .btn-primary-sync {
-      background: var(--gold-dim);
-      color: var(--ink);
-      border: none;
-      font-weight: bold;
+      border-color: var(--gold-dim);
+      color: var(--gold);
+      background: rgba(201, 168, 76, 0.05);
     }
 
     .entry-group {
-      margin-bottom: 48px;
+      margin-bottom: 0;
       display: flex;
       justify-content: flex-start;
       position: relative;
       width: 100%;
     }
 
-    /* Shared Card Logic */
+    /* =========================================================================
+       CARD COMPONENT & VISUAL EFFECTS
+       ========================================================================= */
     .ledger-card,
     .series-block {
       display: flex;
-      background: rgba(245, 240, 232, 0.04);
+      background: #191411;
       border: 1px solid rgba(201, 168, 76, 0.2);
       width: 100%;
       max-width: 1100px;
       box-shadow: 12px 12px 25px rgba(0, 0, 0, 0.35);
-      transition: all 0.4s ease;
+      transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease;
+      overflow: hidden;
+      position: relative;
     }
 
-    .series-block:hover {
-      background: rgba(245, 240, 232, 0.00);
-    }
-
-    .ledger-card:hover {
-      background: rgba(245, 240, 232, 0);
-    }
-
-    .edit-pen:hover+.ledger-card+.series-block {
-      background: rgba(245, 240, 232, 0);
+    /* GLISTEN EFFECT LAYER: Pure hidden asset until hovered */
+    .ledger-card::before,
+    .series-block::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(115deg,
+          transparent 20%,
+          rgba(201, 168, 76, 0.08) 40%,
+          rgba(255, 255, 255, 0.12) 50%,
+          rgba(201, 168, 76, 0.08) 60%,
+          transparent 80%);
+      transform: translateX(-150%);
+      pointer-events: none;
+      z-index: 2;
+      opacity: 0;
+      transition: opacity 0.4s ease;
     }
 
     .series-block {
-      background: rgba(201, 168, 76, 0.03);
       border: 1px solid rgba(201, 168, 76, 0.3);
+    }
+
+    /* Base Float configuration for active layout view sets */
+    .entry-slide.active .ledger-card,
+    .entry-slide.active .series-block,
+    .archive-stage.list-layout .entry-slide .ledger-card,
+    .archive-stage.list-layout .entry-slide .series-block {
+      animation: cardFloat 5s ease-in-out infinite;
+      animation-delay: var(--float-delay, 0s);
+      /* Driven dynamically in JS loop */
+      box-shadow:
+        0 20px 45px rgba(0, 0, 0, 0.8),
+        0 0 30px rgba(201, 168, 76, 0.15),
+        0 0 80px rgba(201, 168, 76, 0.08);
+    }
+
+    /* INTERACTION TARGET: Glisten triggers, float pauses, and block lifts up */
+    .entry-slide:hover .ledger-card,
+    .entry-slide:hover .series-block {
+      animation-play-state: paused !important;
+      transform: translateY(-12px) scale(1.015) !important;
+      border-color: var(--gold);
+      box-shadow:
+        0 30px 60px rgba(0, 0, 0, 0.9),
+        0 0 35px rgba(201, 168, 76, 0.25),
+        0 0 90px rgba(201, 168, 76, 0.15);
+    }
+
+    .entry-slide:hover .ledger-card::before,
+    .entry-slide:hover .series-block::before {
+      opacity: 1;
+      animation: shimmer 3.5s linear infinite;
+    }
+
+    @keyframes cardFloat {
+
+      0%,
+      100% {
+        transform: translateY(0px);
+      }
+
+      50% {
+        transform: translateY(-8px);
+      }
+    }
+
+    @keyframes shimmer {
+      0% {
+        transform: translateX(-150%);
+      }
+
+      100% {
+        transform: translateX(150%);
+      }
     }
 
     .ledger-content {
@@ -385,34 +469,34 @@
     }
 
     .action-btn {
-      background: transparent;
-      border: 1px solid rgba(201, 168, 76, 0.3);
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(201, 168, 76, 0.25);
       color: var(--gold-dim);
       padding: 10px 18px;
       cursor: pointer;
       font-size: 0.85rem;
-      text-transform: uppercase;
       font-weight: bold;
-      letter-spacing: 1px;
       white-space: nowrap;
-      transition: all 0.4s ease;
     }
 
     .action-btn:hover {
-      background-color: var(--gold-dim);
-      color: #fff
+      background-color: #191411;
+      border-color: var(--gold);
+      color: var(--gold);
+      box-shadow: 0 0 10px rgba(201, 168, 76, 0.2);
     }
 
     .btn-burn {
-      border-color: var(--crimson);
+      border-color: rgba(163, 29, 29, 0.4);
       background: transparent;
       color: var(--crimson);
     }
 
     .btn-burn:hover {
-      border-color: transparent;
-      background: var(--crimson);
+      border-color: var(--crimson);
+      background: rgba(163, 29, 29, 0.05);
       color: #fff;
+      box-shadow: 0 0 10px rgba(163, 29, 29, 0.3);
     }
 
     .edit-pen {
@@ -441,15 +525,7 @@
       color: #fff
     }
 
-    .edit-pen:hover+.ledger-card {
-      background: rgba(245, 240, 232, 0);
-    }
-
-    .edit-pen:hover+.series-block {
-      background: rgba(245, 240, 232, 0);
-    }
-
-
+    .entry-slide:hover .edit-pen,
     .entry-group:hover .edit-pen {
       opacity: 1;
     }
@@ -476,7 +552,6 @@
       cursor: pointer;
     }
 
-
     .read-state {
       opacity: 0.3;
       filter: grayscale(1);
@@ -495,42 +570,269 @@
       padding: 24px;
     }
 
+    /* =========================================================================
+       GENRE FILTERS OVERHAUL (MASTER CONTROL BOARD)
+       ========================================================================= */
     .filter-chips {
       display: flex;
       flex-wrap: wrap;
       gap: 14px;
       justify-content: center;
-      margin-bottom: 55px;
+      margin-bottom: 40px;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(201, 168, 76, 0.2);
+      padding: 6px;
+      border-radius: 30px;
     }
 
     .filter-chip {
       background: transparent;
-      border: 1px solid rgba(201, 168, 76, 0.2);
+      border: none;
       color: rgba(245, 240, 232, 0.4);
       padding: 10px 24px;
       cursor: pointer;
       text-transform: uppercase;
       font-size: 0.95rem;
-      transition: all 0.4s ease;
+      border-radius: 20px;
     }
 
     .filter-chip:hover {
-      background: rgba(201, 168, 76, 0.1);
-      ;
+      color: var(--gold);
     }
 
     .filter-chip.active {
-      color: var(--gold);
-      border-color: var(--gold);
       background: rgba(201, 168, 76, 0.1);
+      border: 1px solid rgba(201, 168, 76, 0.3);
+      color: var(--gold);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+    }
+
+    .view-switcher {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 35px;
+    }
+
+    .switch-panel {
+      display: inline-flex;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(201, 168, 76, 0.2);
+      padding: 5px;
+      border-radius: 30px;
+    }
+
+    .switch-btn {
+      background: transparent;
+      border: none;
+      color: rgba(245, 240, 232, 0.4);
+      padding: 10px 26px;
+      font-size: 1rem;
+      cursor: pointer;
+      border-radius: 20px;
+    }
+
+    .switch-btn:hover {
+      color: var(--gold);
+    }
+
+    .switch-btn.active {
+      background: rgba(201, 168, 76, 0.1);
+      border: 1px solid rgba(201, 168, 76, 0.3);
+      color: var(--gold);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+    }
+
+    .deck-section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: var(--gold);
+      text-align: center;
+      margin: 40px 0 10px;
+      letter-spacing: 1px;
+    }
+
+    /* =========================================================================
+       DYNAMIC 3D SLIDER WRAPPER SYSTEM
+       ========================================================================= */
+    .archive-stage {
+      position: relative;
+      width: 100%;
+      min-height: 580px;
+      margin: 10px auto 40px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      perspective: 1200px;
+    }
+
+    .entry-slide {
+      position: absolute;
+      width: 100%;
+      max-width: 650px;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 0;
+      transform: translateX(0) scale(0.5);
+      transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1),
+        opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1),
+        z-index 0.6s step-out;
+    }
+
+    .entry-slide.active {
+      opacity: 1;
+      z-index: 100;
+      pointer-events: auto;
+      animation: revealCard 0.7s cubic-bezier(.2, .8, .2, 1) forwards;
+    }
+
+    @keyframes revealCard {
+      from {
+        opacity: 0;
+        transform: rotateY(-25deg) translateY(30px) scale(.9);
+      }
+
+      to {
+        opacity: 1;
+        transform: rotateY(0deg) translateY(0) scale(1);
+      }
+    }
+
+    .entry-slide.prev {
+      opacity: 0.55;
+      z-index: 50;
+      pointer-events: auto;
+      animation: sideDriftLeft 6s ease-in-out infinite;
+    }
+
+    @keyframes sideDriftLeft {
+
+      0%,
+      100% {
+        transform: translateX(-180px) scale(.82) rotateY(15deg);
+      }
+
+      50% {
+        transform: translateX(-190px) scale(.84) rotateY(16deg);
+      }
+    }
+
+    .entry-slide.next {
+      opacity: 0.55;
+      z-index: 50;
+      pointer-events: auto;
+      animation: sideDriftRight 6s ease-in-out infinite;
+    }
+
+    @keyframes sideDriftRight {
+
+      0%,
+      100% {
+        transform: translateX(180px) scale(.82) rotateY(-15deg);
+      }
+
+      50% {
+        transform: translateX(190px) scale(.84) rotateY(-16deg);
+      }
+    }
+
+    .entry-slide.far-prev {
+      opacity: 0.15;
+      z-index: 10;
+      transform: translateX(-300px) scale(0.68) rotateY(25deg);
+    }
+
+    .entry-slide.far-next {
+      opacity: 0.15;
+      z-index: 10;
+      transform: translateX(300px) scale(0.68) rotateY(-25deg);
+    }
+
+    .deck-controls {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-bottom: 10px;
+    }
+
+    .deck-nav-btn {
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--gold-dim);
+      color: var(--gold-dim);
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+    }
+
+    .deck-nav-btn:hover {
+      background: #191411;
+      border-color: var(--gold);
+      color: var(--gold);
+      transform: scale(1.05);
+      box-shadow: 0 0 12px rgba(201, 168, 76, 0.3);
+    }
+
+    .entry-slide .ledger-card,
+    .entry-slide .series-block {
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.7);
+    }
+
+    /* =========================================================================
+       CLASSIC LIST VIEW ARCHITECTURE
+       ========================================================================= */
+    .archive-stage.list-layout {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      min-height: auto;
+      align-items: center;
+    }
+
+    .archive-stage.list-layout .entry-slide {
+      position: relative;
+      opacity: 1;
+      pointer-events: auto;
+      transform: none !important;
+      max-width: 100%;
+      transition: none;
+      animation: none !important;
+    }
+
+    .archive-stage.list-layout .entry-slide .ledger-card,
+    .archive-stage.list-layout .entry-slide .series-block {
+      background: #191411;
     }
 
     /* --- Mobile Responsiveness --- */
     @media (max-width: 600px) {
-      .ledger-card, .series-block {
-      padding: 0 0 10px 0;
+      .archive-stage {
+        min-height: 500px;
       }
 
+      .entry-slide.prev {
+        animation: none;
+        transform: translateX(-80px) scale(0.8) rotateY(10deg);
+      }
+
+      .entry-slide.next {
+        animation: none;
+        transform: translateX(80px) scale(0.8) rotateY(-10deg);
+      }
+
+      .entry-slide.far-prev,
+      .entry-slide.far-next {
+        opacity: 0;
+      }
+
+      .ledger-card,
+      .series-block {
+        padding: 0 0 10px 0;
+      }
 
       h1 {
         font-size: 2.5rem;
@@ -602,6 +904,14 @@
         padding: 8px 15px;
         font-size: 0.9rem;
       }
+
+      .filter-chips {
+        border-radius: 16px;
+      }
+
+      .filter-chip {
+        padding: 8px 16px;
+      }
     }
   </style>
 </head>
@@ -664,7 +974,31 @@
     </div>
     <div id="master-genre-filters" class="filter-chips"></div>
 
-    <div id="archive-root"></div>
+    <div class="view-switcher">
+      <div class="switch-panel">
+        <button class="switch-btn" id="mode-deck-btn" onclick="setViewMode('deck')">3D Deck View</button>
+        <button class="switch-btn active" id="mode-list-btn" onclick="setViewMode('list')">Classic Ledger View</button>
+      </div>
+    </div>
+
+    <div id="decks-container">
+      <div id="unread-deck-block">
+        <div class="deck-controls" id="unread-navigation">
+          <button class="deck-nav-btn" onclick="shiftDeck('unread', -1)">←</button>
+          <button class="deck-nav-btn" onclick="shiftDeck('unread', 1)">→</button>
+        </div>
+        <div id="archive-root-unread" class="archive-stage"></div>
+      </div>
+
+      <div id="read-deck-block">
+        <div class="deck-controls" id="read-navigation">
+          <button class="deck-nav-btn" onclick="shiftDeck('read', -1)">←</button>
+          <button class="deck-nav-btn" onclick="shiftDeck('read', 1)">→</button>
+        </div>
+        <div id="archive-root-read" class="archive-stage"></div>
+      </div>
+    </div>
+
   </div>
 
   <script>
@@ -681,6 +1015,10 @@
     let selectedGenres = [];
     let activeFilter = null;
 
+    let unreadDeckIndex = 0;
+    let readDeckIndex = 0;
+    let displayMode = 'list';
+
     const request = indexedDB.open("ArchiveOfRuinV10", 1);
     request.onupgradeneeded = (e) => {
       let d = e.target.result;
@@ -691,7 +1029,7 @@
     request.onsuccess = (e) => {
       db = e.target.result;
       renderGenreChips();
-      loadArchive();
+      setViewMode(displayMode);
     };
 
     function toTitleCase(str) { return str ? str.replace(/\b\w/g, char => char.toUpperCase()) : ""; }
@@ -758,44 +1096,169 @@
       tx.oncomplete = () => { resetForm(); loadArchive(); };
     }
 
+    function setViewMode(mode) {
+      displayMode = mode;
+
+      const deckBtn = document.getElementById('mode-deck-btn');
+      const listBtn = document.getElementById('mode-list-btn');
+      const unreadNav = document.getElementById('unread-navigation');
+      const readNav = document.getElementById('read-navigation');
+      const unreadStage = document.getElementById('archive-root-unread');
+      const readStage = document.getElementById('archive-root-read');
+
+      if (mode === 'deck') {
+        deckBtn.classList.add('active');
+        listBtn.classList.remove('active');
+        unreadNav.style.display = 'flex';
+        readNav.style.display = 'flex';
+        unreadStage.classList.remove('list-layout');
+        readStage.classList.remove('list-layout');
+      } else {
+        listBtn.classList.add('active');
+        deckBtn.classList.remove('active');
+        unreadNav.style.display = 'none';
+        readNav.style.display = 'none';
+        unreadStage.classList.add('list-layout');
+        readStage.classList.add('list-layout');
+      }
+
+      loadArchive();
+    }
+
+    function generateCardHTML(item) {
+      return `
+        <div class="entry-group">
+          <button class="edit-pen" onclick="startEdit(${item.id})">🖉</button>
+          <div class="${item.isSeries ? 'series-block' : 'ledger-card'} ${item.read ? 'read-state' : ''}">
+              <div class="ledger-content">
+                  <div class="book-title">${item.title}</div>
+                  <div style="font-style:italic; opacity:0.6; font-size:1.2rem;">${item.isSeries ? 'Series' : 'Book'} by ${item.author}</div>
+                  <div style="margin-top:14px;">${item.genres.map(g => `<span class="tag">${g}</span>`).join('')}</div>
+                  ${item.isSeries ? `<div style="margin-top:20px; display:flex; flex-direction:column; gap:10px">
+                      ${item.books.map((b, i) => `
+                      <div class="ledger-card ${b.read ? 'read-state' : ''}" style="min-width:auto; background:rgba(0,0,0,0.2); flex-direction: row;">
+                          <div class="ledger-content" style="padding:15px 20px; font-family: 'Playfair Display'; font-size: 1.3rem;">${b.title}</div>
+                          <div class="ledger-actions" style="padding:10px 15px; min-width: 120px;">
+                              <button class="action-btn" onclick="toggleBookRead(${item.id}, ${i})">${b.read ? 'Unread' : 'Read'}</button>
+                          </div>
+                      </div>`).join('')}
+                  </div>` : ''}
+              </div>
+              <div class="ledger-actions">
+                  <button class="action-btn" onclick="${item.isSeries ? `toggleSeriesRead(${item.id})` : `toggleStandaloneRead(${item.id})`}">${item.read ? 'Unread' : 'Finished'}</button>
+                  <button class="action-btn btn-burn" onclick="deleteEntry(${item.id})">Burn</button>
+              </div>
+          </div>
+        </div>`;
+    }
+
     function loadArchive() {
-      const root = document.getElementById('archive-root');
+      const unreadRoot = document.getElementById('archive-root-unread');
+      const readRoot = document.getElementById('archive-root-read');
       const query = document.getElementById('search').value.toLowerCase();
+
       if (!db) return;
+
       db.transaction("entries", "readonly").objectStore("entries").getAll().onsuccess = (e) => {
         let data = e.target.result;
+
         if (activeFilter) data = data.filter(item => item.genres.includes(activeFilter));
         data = data.filter(item => item.title.toLowerCase().includes(query) || item.author.toLowerCase().includes(query));
-        data.sort((a, b) => (a.read !== b.read) ? a.read - b.read : (a.author || "").localeCompare(b.author || ""));
+        data.sort((a, b) => (a.author || "").localeCompare(b.author || ""));
 
-        root.innerHTML = '';
-        data.forEach(item => {
-          const div = document.createElement('div');
-          div.className = 'entry-group';
-          div.innerHTML = `<button class="edit-pen" onclick="startEdit(${item.id})">🖉</button>
-            <div class="${item.isSeries ? 'series-block' : 'ledger-card'} ${item.read ? 'read-state' : ''}">
-                <div class="ledger-content">
-                    <div class="book-title">${item.title}</div>
-                    <div style="font-style:italic; opacity:0.6; font-size:1.2rem;">${item.isSeries ? 'Series' : 'Book'} by ${item.author}</div>
-                    <div style="margin-top:14px;">${item.genres.map(g => `<span class="tag">${g}</span>`).join('')}</div>
-                    ${item.isSeries ? `<div style="margin-top:20px; display:flex; flex-direction:column; gap:10px">
-                        ${item.books.map((b, i) => `
-                        <div class="ledger-card ${b.read ? 'read-state' : ''}" style="min-width:auto; background:rgba(0,0,0,0.2); flex-direction: row;">
-                            <div class="ledger-content" style="padding:15px 20px; font-family: 'Playfair Display'; font-size: 1.3rem;">${b.title}</div>
-                            <div class="ledger-actions" style="padding:10px 15px; min-width: 120px;">
-                                <button class="action-btn" onclick="toggleBookRead(${item.id}, ${i})">${b.read ? 'Unread' : 'Read'}</button>
-                            </div>
-                        </div>`).join('')}
-                    </div>` : ''}
-                </div>
-                <div class="ledger-actions">
-                    <button class="action-btn" onclick="${item.isSeries ? `toggleSeriesRead(${item.id})` : `toggleStandaloneRead(${item.id})`}">${item.read ? 'Unread' : 'Finished'}</button>
-                    <button class="action-btn btn-burn" onclick="deleteEntry(${item.id})">Burn</button>
-                </div>
-            </div>`;
-          root.appendChild(div);
+        unreadRoot.innerHTML = '';
+        readRoot.innerHTML = '';
+
+        const unreadItems = data.filter(item => !item.read);
+        const readItems = data.filter(item => item.read);
+
+        if (unreadDeckIndex >= unreadItems.length) unreadDeckIndex = Math.max(0, unreadItems.length - 1);
+        if (readDeckIndex >= readItems.length) readDeckIndex = Math.max(0, readItems.length - 1);
+
+        unreadItems.forEach((item, idx) => {
+          const slide = document.createElement('div');
+          slide.className = 'entry-slide';
+          // DYNAMIC STEP: Assign mathematical staggered variation delays to put elements out of phase
+          slide.style.setProperty('--float-delay', `-${(idx * 1.6) % 5}s`);
+
+          if (displayMode === 'deck') {
+            slide.addEventListener('click', (e) => {
+              if (idx !== unreadDeckIndex && !e.target.closest('button') && !e.target.closest('.tag')) {
+                unreadDeckIndex = idx;
+                updateDeckLayout('unread', unreadDeckIndex);
+              }
+            });
+          }
+          slide.innerHTML = generateCardHTML(item);
+          unreadRoot.appendChild(slide);
         });
+
+        readItems.forEach((item, idx) => {
+          const slide = document.createElement('div');
+          slide.className = 'entry-slide';
+          // DYNAMIC STEP: Stagger read deck indices perfectly out of rhythm
+          slide.style.setProperty('--float-delay', `-${(idx * 2.1) % 5}s`);
+
+          if (displayMode === 'deck') {
+            slide.addEventListener('click', (e) => {
+              if (idx !== readDeckIndex && !e.target.closest('button') && !e.target.closest('.tag')) {
+                readDeckIndex = idx;
+                updateDeckLayout('read', readDeckIndex);
+              }
+            });
+          }
+          slide.innerHTML = generateCardHTML(item);
+          readRoot.appendChild(slide);
+        });
+
+        if (displayMode === 'deck') {
+          updateDeckLayout('unread', unreadDeckIndex);
+          updateDeckLayout('read', readDeckIndex);
+        }
       };
+    }
+
+    function updateDeckLayout(deckType, targetIndex) {
+      if (displayMode !== 'deck') return;
+
+      const selector = deckType === 'unread' ? '#archive-root-unread .entry-slide' : '#archive-root-read .entry-slide';
+      const slides = document.querySelectorAll(selector);
+
+      slides.forEach((slide, index) => {
+        slide.classList.remove('active', 'prev', 'next', 'far-prev', 'far-next');
+
+        if (index === targetIndex) {
+          slide.classList.add('active');
+        } else if (index === targetIndex - 1) {
+          slide.classList.add('prev');
+        } else if (index === targetIndex + 1) {
+          slide.classList.add('next');
+        } else if (index === targetIndex - 2) {
+          slide.classList.add('far-prev');
+        } else if (index === targetIndex + 2) {
+          slide.classList.add('far-next');
+        }
+
+        const innerCard = slide.querySelector('.ledger-card') || slide.querySelector('.series-block');
+        if (innerCard) innerCard.style.transform = '';
+      });
+    }
+
+    function shiftDeck(deckType, direction) {
+      if (displayMode !== 'deck') return;
+
+      const selector = deckType === 'unread' ? '#archive-root-unread .entry-slide' : '#archive-root-read .entry-slide';
+      const totalSlides = document.querySelectorAll(selector).length;
+
+      if (totalSlides === 0) return;
+
+      if (deckType === 'unread') {
+        unreadDeckIndex = Math.max(0, Math.min(unreadDeckIndex + direction, totalSlides - 1));
+        updateDeckLayout('unread', unreadDeckIndex);
+      } else {
+        readDeckIndex = Math.max(0, Math.min(readDeckIndex + direction, totalSlides - 1));
+        updateDeckLayout('read', readDeckIndex);
+      }
     }
 
     function toggleBookRead(id, idx) {
@@ -913,6 +1376,34 @@
       };
       reader.readAsText(file);
     }
+
+    /* =========================================================================
+       MOUSE PARALLAX PARSER WITH POP-UP CALCULATION
+       ========================================================================= */
+    document.addEventListener('mousemove', e => {
+      if (displayMode !== 'deck') return;
+
+      const activeSlides = document.querySelectorAll('.entry-slide.active');
+      activeSlides.forEach(slide => {
+        const activeCard = slide.querySelector('.ledger-card') || slide.querySelector('.series-block');
+        if (!activeCard) return;
+
+        const rect = activeCard.getBoundingClientRect();
+
+        const x = (e.clientX - rect.left) / rect.width;
+        const y = (e.clientY - rect.top) / rect.height;
+
+        if (x >= -0.2 && x <= 1.2 && y >= -0.2 && y <= 1.2) {
+          const rotateY = (x - 0.5) * 10;
+          const rotateX = -(y - 0.5) * 10;
+
+          // Added explicit translateY(-12px) to force pop up positioning while 3D parsing coordinates
+          activeCard.style.transform = `perspective(1200px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-12px) scale(1.015)`;
+        } else {
+          activeCard.style.transform = '';
+        }
+      });
+    });
   </script>
 </body>
 
