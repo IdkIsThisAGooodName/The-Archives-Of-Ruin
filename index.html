@@ -179,9 +179,6 @@
       margin-bottom: 16px;
     }
 
-    /* =========================================================================
-       GENRE CHIPS STYLE (FORM LEVEL)
-       ========================================================================= */
     .genre-list {
       display: flex;
       flex-wrap: wrap;
@@ -227,9 +224,6 @@
       margin-top: 24px;
     }
 
-    /* =========================================================================
-       BUTTON STYLE OVERHAUL (THE UNIFIED GRIMOIRE VIBE)
-       ========================================================================= */
     .btn-commit,
     .utility-btn,
     .action-btn,
@@ -350,9 +344,6 @@
       width: 100%;
     }
 
-    /* =========================================================================
-       CARD COMPONENT & VISUAL EFFECTS
-       ========================================================================= */
     .ledger-card,
     .series-block {
       display: flex;
@@ -366,7 +357,6 @@
       position: relative;
     }
 
-    /* GLISTEN EFFECT LAYER: Pure hidden asset until hovered */
     .ledger-card::before,
     .series-block::before {
       content: "";
@@ -389,7 +379,6 @@
       border: 1px solid rgba(201, 168, 76, 0.3);
     }
 
-    /* Base Float configuration for active layout view sets */
     .entry-slide.active .ledger-card,
     .entry-slide.active .series-block,
     .archive-stage.list-layout .entry-slide .ledger-card,
@@ -402,7 +391,6 @@
         0 0 80px rgba(201, 168, 76, 0.08);
     }
 
-    /* INTERACTION TARGET: Glisten triggers, float pauses, and block lifts up */
     .entry-slide:hover .ledger-card,
     .entry-slide:hover .series-block {
       animation-play-state: paused !important;
@@ -569,9 +557,6 @@
       padding: 24px;
     }
 
-    /* =========================================================================
-       GENRE FILTERS OVERHAUL (MASTER CONTROL BOARD)
-       ========================================================================= */
     .filter-chips {
       display: flex;
       flex-wrap: wrap;
@@ -650,9 +635,6 @@
       letter-spacing: 1px;
     }
 
-    /* =========================================================================
-       DYNAMIC 3D SLIDER WRAPPER SYSTEM
-       ========================================================================= */
     .archive-stage {
       position: relative;
       width: 100%;
@@ -662,6 +644,8 @@
       justify-content: center;
       align-items: flex-start;
       perspective: 1200px;
+      /* Prevent mobile down swipe context issues / scrolling breaks while on elements */
+      touch-action: pan-y;
     }
 
     .entry-slide {
@@ -781,9 +765,6 @@
       box-shadow: 0 20px 45px rgba(0, 0, 0, 0.7);
     }
 
-    /* =========================================================================
-       CLASSIC LIST VIEW ARCHITECTURE
-       ========================================================================= */
     .archive-stage.list-layout {
       display: flex;
       flex-direction: column;
@@ -807,202 +788,108 @@
       background: #191411;
     }
 
-    /* --- Enhanced Mobile Responsiveness --- */
-    @media (max-width: 768px) {
-      .container {
-        padding: 40px 16px;
-      }
-
-      header {
-        margin-bottom: 40px;
-      }
-
-      h1 {
-        font-size: 2.4rem;
-      }
-
-      .grimoire-form {
-        padding: 24px 16px;
-        margin-bottom: 30px;
-      }
-
-      .form-row {
-        grid-template-columns: 1fr;
-        gap: 16px;
-        margin-bottom: 16px;
-      }
-
-      input,
-      textarea {
-        padding: 16px;
-        font-size: 1.1rem;
-      }
-
-      .genre-manager {
-        flex-direction: column;
-        gap: 12px;
-      }
-
-      .genre-manager button {
-        width: 100% !important;
-        padding: 16px;
-      }
-
-      .genre-list {
-        padding: 16px;
-        margin-bottom: 20px;
-        gap: 10px;
-      }
-
-      .genre-chip {
-        padding: 8px 14px;
-        font-size: 0.95rem;
-      }
-
-      .btn-commit {
-        padding: 16px;
-        font-size: 1.1rem;
-      }
-
-      .utility-container {
-        padding: 16px;
-        margin-bottom: 30px;
-      }
-
-      .utility-row {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 16px;
-      }
-
-      .cloud-sync-group {
-        flex-direction: column;
-        width: 100%;
-        gap: 8px;
-      }
-
-      .cloud-sync-group .utility-btn,
-      .cloud-sync-group .sync-input {
-        width: 100% !important;
-        padding: 12px;
-        font-size: 0.95rem;
-      }
-
-      .search-wrap input {
-        font-size: 1.2rem;
-        padding: 16px;
-        margin-bottom: 20px;
-      }
-
-      /* Native scrollable swipeable strip for mobile tags */
-      .filter-chips {
-        display: flex;
-        flex-wrap: nowrap;
-        justify-content: flex-start;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        padding: 8px 12px;
-        border-radius: 20px;
-        margin-bottom: 24px;
-        scrollbar-width: none;
-      }
-
-      .filter-chips::-webkit-scrollbar {
-        display: none;
-      }
-
-      .filter-chip {
-        padding: 8px 16px;
-        font-size: 0.9rem;
-        white-space: nowrap;
-        border-radius: 15px;
-        border: 1px solid rgba(201, 168, 76, 0.1);
-        background: rgba(0, 0, 0, 0.2);
-      }
-
-      .view-switcher {
-        margin-bottom: 24px;
-      }
-
-      .switch-btn {
-        padding: 8px 18px;
-        font-size: 0.9rem;
-      }
-
+    @media (max-width: 600px) {
       .archive-stage {
-        min-height: 480px;
-      }
-
-      .entry-slide {
-        max-width: 90%;
+        min-height: 500px;
       }
 
       .entry-slide.prev {
         animation: none;
-        transform: translateX(-65px) scale(0.82) rotateY(12deg) !important;
-        opacity: 0.4;
+        transform: translateX(-80px) scale(0.8) rotateY(10deg);
       }
 
       .entry-slide.next {
         animation: none;
-        transform: translateX(65px) scale(0.82) rotateY(-12deg) !important;
-        opacity: 0.4;
+        transform: translateX(80px) scale(0.8) rotateY(-10deg);
       }
 
       .entry-slide.far-prev,
       .entry-slide.far-next {
-        display: none;
+        opacity: 0;
+      }
+
+      .ledger-card,
+      .series-block {
+        padding: 0 0 10px 0;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+      }
+
+      .title-label {
+        font-size: 0.7rem;
+        letter-spacing: 0.2em;
+      }
+
+      .grimoire-form {
+        padding: 25px 20px;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+        gap: 15px;
+      }
+
+      input,
+      textarea,
+      .btn-commit {
+        padding: 15px;
+        font-size: 1.1rem;
       }
 
       .ledger-card,
       .series-block {
         flex-direction: column;
-        padding: 0;
       }
 
       .ledger-content {
         padding: 20px;
       }
 
-      .book-title {
-        font-size: 1.8rem;
-      }
-
       .ledger-actions {
         flex-direction: row;
-        flex-wrap: wrap;
-        padding: 16px 20px;
-        min-width: 100%;
-        border-top: 1px solid rgba(201, 168, 76, 0.15);
-        gap: 10px;
-        margin: 0;
+        padding: 15px 24px;
+        min-width: unset;
+        border-top: 1px solid rgba(201, 168, 76, 0.2);
+        margin: 0 20px;
+        border-radius: 0;
       }
 
       .ledger-actions::before {
         display: none;
       }
 
-      .ledger-actions .action-btn {
-        flex: 1;
-        min-width: 100px;
-        padding: 12px;
-        font-size: 0.9rem;
-        text-align: center;
+      .book-title {
+        font-size: 1.6rem;
       }
 
-      .edit-pen {
-        opacity: 1 !important;
-        right: 12px;
-        top: 12px;
-        width: 44px;
-        height: 44px;
-        background: rgba(25, 20, 17, 0.9);
+      .utility-row {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .sync-input {
+        width: 100%;
       }
 
       .tag {
-        font-size: 0.75rem;
-        padding: 4px 8px;
-        margin-right: 6px;
+        font-size: 0.7rem;
+        padding: 3px 8px;
+        margin-right: 5px;
+      }
+
+      .genre-chip {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+      }
+
+      .filter-chips {
+        border-radius: 16px;
+      }
+
+      .filter-chip {
+        padding: 8px 16px;
       }
     }
   </style>
@@ -1122,6 +1009,7 @@
       db = e.target.result;
       renderGenreChips();
       setViewMode(displayMode);
+      setupGestures(); /* Initialize Swipe and Trackpad Observers */
     };
 
     function toTitleCase(str) { return str ? str.replace(/\b\w/g, char => char.toUpperCase()) : ""; }
@@ -1228,9 +1116,9 @@
                   <div style="margin-top:14px;">${item.genres.map(g => `<span class="tag">${g}</span>`).join('')}</div>
                   ${item.isSeries ? `<div style="margin-top:20px; display:flex; flex-direction:column; gap:10px">
                       ${item.books.map((b, i) => `
-                      <div class="ledger-card ${b.read ? 'read-state' : ''}" style="min-width:auto; background:rgba(0,0,0,0.2); flex-direction: row; margin-bottom:0px;">
+                      <div class="ledger-card ${b.read ? 'read-state' : ''}" style="min-width:auto; background:rgba(0,0,0,0.2); flex-direction: row;">
                           <div class="ledger-content" style="padding:15px 20px; font-family: 'Playfair Display'; font-size: 1.3rem;">${b.title}</div>
-                          <div class="ledger-actions" style="padding:10px 15px; min-width: 120px; border-top:none;">
+                          <div class="ledger-actions" style="padding:10px 15px; min-width: 120px;">
                               <button class="action-btn" onclick="toggleBookRead(${item.id}, ${i})">${b.read ? 'Unread' : 'Read'}</button>
                           </div>
                       </div>`).join('')}
@@ -1351,6 +1239,62 @@
       }
     }
 
+    /* =========================================================================
+       NATIVE INTERACTION GESTURES: TOUCH SWIPES & TRACKPAD TWO-FINGER SCROLLS
+       ========================================================================= */
+    function setupGestures() {
+      let touchStartX = 0;
+      let touchEndX = 0;
+      const swipeThreshold = 50; // Min px to register touch swipe
+
+      let isWheelDebounced = false;
+      const wheelThreshold = 35; // Min horizontal scroll delta to register trackpad gesture
+      const debounceCooldown = 600; // Cooldown (ms) to keep from flying through multiple slides
+
+      function handleSwipe(deckType) {
+        const deltaX = touchEndX - touchStartX;
+        if (Math.abs(deltaX) > swipeThreshold) {
+          if (deltaX < 0) {
+            shiftDeck(deckType, 1); // Left swipe -> Next
+          } else {
+            shiftDeck(deckType, -1); // Right swipe -> Prev
+          }
+        }
+      }
+
+      function handleTrackpadWheel(e, deckType) {
+        if (displayMode !== 'deck' || isWheelDebounced) return;
+
+        // Extract horizontal movement from trackpad wheel event triggers
+        if (Math.abs(e.deltaX) > wheelThreshold) {
+          isWheelDebounced = true;
+
+          if (e.deltaX > 0) {
+            shiftDeck(deckType, 1); // 2-finger scroll right -> Next
+          } else {
+            shiftDeck(deckType, -1); // 2-finger scroll left -> Prev
+          }
+
+          // Force lock out window interaction triggers temporarily
+          setTimeout(() => {
+            isWheelDebounced = false;
+          }, debounceCooldown);
+        }
+      }
+
+      // Hook observers to Unread Stage
+      const unreadStage = document.getElementById('archive-root-unread');
+      unreadStage.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
+      unreadStage.addEventListener('touchend', e => { touchEndX = e.changedTouches[0].screenX; handleSwipe('unread'); }, { passive: true });
+      unreadStage.addEventListener('wheel', e => { handleTrackpadWheel(e, 'unread'); }, { passive: true });
+
+      // Hook observers to Read Stage
+      const readStage = document.getElementById('archive-root-read');
+      readStage.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
+      readStage.addEventListener('touchend', e => { touchEndX = e.changedTouches[0].screenX; handleSwipe('read'); }, { passive: true });
+      readStage.addEventListener('wheel', e => { handleTrackpadWheel(e, 'read'); }, { passive: true });
+    }
+
     function toggleBookRead(id, idx) {
       const tx = db.transaction("entries", "readwrite");
       const store = tx.objectStore("entries");
@@ -1467,9 +1411,8 @@
       reader.readAsText(file);
     }
 
-    /* --- Parallax calculation conditional bypass for mobile viewports --- */
     document.addEventListener('mousemove', e => {
-      if (displayMode !== 'deck' || window.innerWidth <= 768) return;
+      if (displayMode !== 'deck') return;
 
       const activeSlides = document.querySelectorAll('.entry-slide.active');
       activeSlides.forEach(slide => {
@@ -1477,12 +1420,14 @@
         if (!activeCard) return;
 
         const rect = activeCard.getBoundingClientRect();
+
         const x = (e.clientX - rect.left) / rect.width;
         const y = (e.clientY - rect.top) / rect.height;
 
         if (x >= -0.2 && x <= 1.2 && y >= -0.2 && y <= 1.2) {
           const rotateY = (x - 0.5) * 10;
           const rotateX = -(y - 0.5) * 10;
+
           activeCard.style.transform = `perspective(1200px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-12px) scale(1.015)`;
         } else {
           activeCard.style.transform = '';
