@@ -396,7 +396,6 @@
     .archive-stage.list-layout .entry-slide .series-block {
       animation: cardFloat 5s ease-in-out infinite;
       animation-delay: var(--float-delay, 0s);
-      /* Driven dynamically in JS loop */
       box-shadow:
         0 20px 45px rgba(0, 0, 0, 0.8),
         0 0 30px rgba(201, 168, 76, 0.15),
@@ -808,109 +807,202 @@
       background: #191411;
     }
 
-    /* --- Mobile Responsiveness --- */
-    @media (max-width: 600px) {
-      .archive-stage {
-        min-height: 500px;
+    /* --- Enhanced Mobile Responsiveness --- */
+    @media (max-width: 768px) {
+      .container {
+        padding: 40px 16px;
       }
 
-      .entry-slide.prev {
-        animation: none;
-        transform: translateX(-80px) scale(0.8) rotateY(10deg);
-      }
-
-      .entry-slide.next {
-        animation: none;
-        transform: translateX(80px) scale(0.8) rotateY(-10deg);
-      }
-
-      .entry-slide.far-prev,
-      .entry-slide.far-next {
-        opacity: 0;
-      }
-
-      .ledger-card,
-      .series-block {
-        padding: 0 0 10px 0;
+      header {
+        margin-bottom: 40px;
       }
 
       h1 {
-        font-size: 2.5rem;
-      }
-
-      .title-label {
-        font-size: 0.7rem;
-        letter-spacing: 0.2em;
+        font-size: 2.4rem;
       }
 
       .grimoire-form {
-        padding: 25px 20px;
+        padding: 24px 16px;
+        margin-bottom: 30px;
       }
 
       .form-row {
         grid-template-columns: 1fr;
-        gap: 15px;
+        gap: 16px;
+        margin-bottom: 16px;
       }
 
       input,
-      textarea,
-      .btn-commit {
-        padding: 15px;
+      textarea {
+        padding: 16px;
         font-size: 1.1rem;
+      }
+
+      .genre-manager {
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .genre-manager button {
+        width: 100% !important;
+        padding: 16px;
+      }
+
+      .genre-list {
+        padding: 16px;
+        margin-bottom: 20px;
+        gap: 10px;
+      }
+
+      .genre-chip {
+        padding: 8px 14px;
+        font-size: 0.95rem;
+      }
+
+      .btn-commit {
+        padding: 16px;
+        font-size: 1.1rem;
+      }
+
+      .utility-container {
+        padding: 16px;
+        margin-bottom: 30px;
+      }
+
+      .utility-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 16px;
+      }
+
+      .cloud-sync-group {
+        flex-direction: column;
+        width: 100%;
+        gap: 8px;
+      }
+
+      .cloud-sync-group .utility-btn,
+      .cloud-sync-group .sync-input {
+        width: 100% !important;
+        padding: 12px;
+        font-size: 0.95rem;
+      }
+
+      .search-wrap input {
+        font-size: 1.2rem;
+        padding: 16px;
+        margin-bottom: 20px;
+      }
+
+      /* Native scrollable swipeable strip for mobile tags */
+      .filter-chips {
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding: 8px 12px;
+        border-radius: 20px;
+        margin-bottom: 24px;
+        scrollbar-width: none;
+      }
+
+      .filter-chips::-webkit-scrollbar {
+        display: none;
+      }
+
+      .filter-chip {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+        white-space: nowrap;
+        border-radius: 15px;
+        border: 1px solid rgba(201, 168, 76, 0.1);
+        background: rgba(0, 0, 0, 0.2);
+      }
+
+      .view-switcher {
+        margin-bottom: 24px;
+      }
+
+      .switch-btn {
+        padding: 8px 18px;
+        font-size: 0.9rem;
+      }
+
+      .archive-stage {
+        min-height: 480px;
+      }
+
+      .entry-slide {
+        max-width: 90%;
+      }
+
+      .entry-slide.prev {
+        animation: none;
+        transform: translateX(-65px) scale(0.82) rotateY(12deg) !important;
+        opacity: 0.4;
+      }
+
+      .entry-slide.next {
+        animation: none;
+        transform: translateX(65px) scale(0.82) rotateY(-12deg) !important;
+        opacity: 0.4;
+      }
+
+      .entry-slide.far-prev,
+      .entry-slide.far-next {
+        display: none;
       }
 
       .ledger-card,
       .series-block {
         flex-direction: column;
+        padding: 0;
       }
 
       .ledger-content {
         padding: 20px;
       }
 
+      .book-title {
+        font-size: 1.8rem;
+      }
+
       .ledger-actions {
         flex-direction: row;
-        padding: 15px 24px;
-        min-width: unset;
-        border-top: 1px solid rgba(201, 168, 76, 0.2);
-        margin: 0 20px;
-        border-radius: 0;
+        flex-wrap: wrap;
+        padding: 16px 20px;
+        min-width: 100%;
+        border-top: 1px solid rgba(201, 168, 76, 0.15);
+        gap: 10px;
+        margin: 0;
       }
 
       .ledger-actions::before {
         display: none;
       }
 
-      .book-title {
-        font-size: 1.6rem;
+      .ledger-actions .action-btn {
+        flex: 1;
+        min-width: 100px;
+        padding: 12px;
+        font-size: 0.9rem;
+        text-align: center;
       }
 
-      .utility-row {
-        flex-direction: column;
-        align-items: stretch;
-      }
-
-      .sync-input {
-        width: 100%;
+      .edit-pen {
+        opacity: 1 !important;
+        right: 12px;
+        top: 12px;
+        width: 44px;
+        height: 44px;
+        background: rgba(25, 20, 17, 0.9);
       }
 
       .tag {
-        font-size: 0.7rem;
-        padding: 3px 8px;
-        margin-right: 5px;
-      }
-
-      .genre-chip {
-        padding: 8px 15px;
-        font-size: 0.9rem;
-      }
-
-      .filter-chips {
-        border-radius: 16px;
-      }
-
-      .filter-chip {
-        padding: 8px 16px;
+        font-size: 0.75rem;
+        padding: 4px 8px;
+        margin-right: 6px;
       }
     }
   </style>
@@ -1136,9 +1228,9 @@
                   <div style="margin-top:14px;">${item.genres.map(g => `<span class="tag">${g}</span>`).join('')}</div>
                   ${item.isSeries ? `<div style="margin-top:20px; display:flex; flex-direction:column; gap:10px">
                       ${item.books.map((b, i) => `
-                      <div class="ledger-card ${b.read ? 'read-state' : ''}" style="min-width:auto; background:rgba(0,0,0,0.2); flex-direction: row;">
+                      <div class="ledger-card ${b.read ? 'read-state' : ''}" style="min-width:auto; background:rgba(0,0,0,0.2); flex-direction: row; margin-bottom:0px;">
                           <div class="ledger-content" style="padding:15px 20px; font-family: 'Playfair Display'; font-size: 1.3rem;">${b.title}</div>
-                          <div class="ledger-actions" style="padding:10px 15px; min-width: 120px;">
+                          <div class="ledger-actions" style="padding:10px 15px; min-width: 120px; border-top:none;">
                               <button class="action-btn" onclick="toggleBookRead(${item.id}, ${i})">${b.read ? 'Unread' : 'Read'}</button>
                           </div>
                       </div>`).join('')}
@@ -1178,7 +1270,6 @@
         unreadItems.forEach((item, idx) => {
           const slide = document.createElement('div');
           slide.className = 'entry-slide';
-          // DYNAMIC STEP: Assign mathematical staggered variation delays to put elements out of phase
           slide.style.setProperty('--float-delay', `-${(idx * 1.6) % 5}s`);
 
           if (displayMode === 'deck') {
@@ -1196,7 +1287,6 @@
         readItems.forEach((item, idx) => {
           const slide = document.createElement('div');
           slide.className = 'entry-slide';
-          // DYNAMIC STEP: Stagger read deck indices perfectly out of rhythm
           slide.style.setProperty('--float-delay', `-${(idx * 2.1) % 5}s`);
 
           if (displayMode === 'deck') {
@@ -1377,11 +1467,9 @@
       reader.readAsText(file);
     }
 
-    /* =========================================================================
-       MOUSE PARALLAX PARSER WITH POP-UP CALCULATION
-       ========================================================================= */
+    /* --- Parallax calculation conditional bypass for mobile viewports --- */
     document.addEventListener('mousemove', e => {
-      if (displayMode !== 'deck') return;
+      if (displayMode !== 'deck' || window.innerWidth <= 768) return;
 
       const activeSlides = document.querySelectorAll('.entry-slide.active');
       activeSlides.forEach(slide => {
@@ -1389,15 +1477,12 @@
         if (!activeCard) return;
 
         const rect = activeCard.getBoundingClientRect();
-
         const x = (e.clientX - rect.left) / rect.width;
         const y = (e.clientY - rect.top) / rect.height;
 
         if (x >= -0.2 && x <= 1.2 && y >= -0.2 && y <= 1.2) {
           const rotateY = (x - 0.5) * 10;
           const rotateX = -(y - 0.5) * 10;
-
-          // Added explicit translateY(-12px) to force pop up positioning while 3D parsing coordinates
           activeCard.style.transform = `perspective(1200px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-12px) scale(1.015)`;
         } else {
           activeCard.style.transform = '';
