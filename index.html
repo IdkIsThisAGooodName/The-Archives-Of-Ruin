@@ -892,12 +892,143 @@
         padding: 8px 16px;
       }
     }
+
+    /* --- AUTHENTICATION --- */
+    .auth-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: rgba(10, 8, 6, 0.96);
+      backdrop-filter: blur(8px);
+    }
+
+    .auth-panel {
+      width: 100%;
+      max-width: 480px;
+      padding: 42px;
+      background: #191411;
+      border: 1px solid rgba(201, 168, 76, 0.35);
+      box-shadow: 0 25px 80px rgba(0, 0, 0, 0.8);
+    }
+
+    .auth-panel h2 {
+      font-family: 'Playfair Display', serif;
+      color: var(--gold);
+      font-size: 2.2rem;
+      font-weight: 400;
+      margin-bottom: 8px;
+    }
+
+    .auth-subtitle {
+      opacity: 0.65;
+      margin-bottom: 28px;
+      font-size: 1.1rem;
+    }
+
+    .auth-panel input {
+      margin-bottom: 14px;
+    }
+
+    .auth-message {
+      min-height: 24px;
+      margin: 12px 0;
+      color: var(--gold);
+      font-size: 0.98rem;
+    }
+
+    .auth-message.error {
+      color: #d86b5d;
+    }
+
+    .auth-secondary {
+      width: 100%;
+      margin-top: 12px;
+    }
+
+    .auth-divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 22px 0;
+      opacity: 0.45;
+    }
+
+    .auth-divider::before,
+    .auth-divider::after {
+      content: '';
+      height: 1px;
+      flex: 1;
+      background: var(--gold-dim);
+    }
+
+    .account-bar {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 12px;
+      margin-bottom: 25px;
+      color: rgba(245, 240, 232, 0.65);
+      font-size: 0.95rem;
+    }
+
+    .account-email {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 300px;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    @media (max-width: 600px) {
+      .auth-panel {
+        padding: 28px 20px;
+      }
+
+      .account-bar {
+        justify-content: space-between;
+      }
+
+      .account-email {
+        max-width: 210px;
+      }
+    }
   </style>
 </head>
 
 <body>
 
+  <div id="auth-overlay" class="auth-overlay">
+    <div class="auth-panel">
+      <div class="title-label">Private Archive</div>
+      <h2 id="auth-title">Enter the Archives</h2>
+      <div class="auth-subtitle" id="auth-subtitle">Sign in to keep your library connected to your account.</div>
+
+      <input type="email" id="auth-email" placeholder="Email address" autocomplete="email">
+      <input type="password" id="auth-password" placeholder="Password" autocomplete="current-password">
+
+      <button class="btn-commit" id="auth-submit" onclick="submitEmailAuth()">Sign In</button>
+      <div class="auth-message" id="auth-message"></div>
+
+      <button class="utility-btn auth-secondary" id="auth-switch" onclick="toggleAuthMode()">Need an account? Create
+        one</button>
+      <button class="utility-btn auth-secondary" id="auth-reset" onclick="sendPasswordReset()">Forgot password?</button>
+    </div>
+  </div>
+
+
   <div class="container">
+
+    <div class="account-bar">
+      <span id="account-email" class="account-email"></span>
+      <button class="utility-btn" onclick="signOut()">Log Out</button>
+    </div>
     <header>
       <div class="title-label">To Be Read</div>
       <h1>The <em>Archives</em><br>of Ruin</h1>
@@ -936,9 +1067,9 @@
     <div class="utility-container">
       <div class="utility-row">
         <div class="cloud-sync-group">
-          <button class="utility-btn btn-primary-sync" onclick="generateSyncCode()">Push to Cloud</button>
-          <input type="text" id="sync-code-input" class="sync-input" placeholder="CODE">
-          <button class="utility-btn" onclick="retrieveFromCloud()">Pull</button>
+          <button class="utility-btn btn-primary-sync" onclick="generateSyncCode()">Save to Cloud</button>
+          <input type="text" id="sync-code-input" class="sync-input" placeholder="SYNC CODE">
+          <button class="utility-btn" onclick="retrieveFromCloud()">Pull Cloud</button>
         </div>
         <div class="cloud-sync-group">
           <button class="utility-btn" onclick="exportArchive()">Export JSON</button>
@@ -991,6 +1122,8 @@
     }
 
     let db;
+    let currentUser = null;
+    let authMode = 'login';
     let selectedGenres = [];
     let activeFilter = null;
 
@@ -1007,10 +1140,170 @@
 
     request.onsuccess = (e) => {
       db = e.target.result;
-      renderGenreChips();
-      setViewMode(displayMode);
       setupGestures(); /* Initialize Swipe and Trackpad Observers */
+      initializeAuth();
     };
+
+
+    /* =========================================================================
+       AUTHENTICATION
+       Email/password authentication, backed by Supabase Auth.
+       The browser only receives the public/publishable key; passwords are
+       handled by Supabase Auth and never stored in this page's database.
+       ========================================================================= */
+
+    async function initializeAuth() {
+      if (!sbClient) {
+        showAuthMessage("Supabase is not configured.", true);
+        return;
+      }
+
+      const { data: { session } } = await sbClient.auth.getSession();
+      await handleAuthSession(session);
+
+      sbClient.auth.onAuthStateChange(async (_event, session) => {
+        await handleAuthSession(session);
+      });
+    }
+
+    async function handleAuthSession(session) {
+      currentUser = session?.user ?? null;
+      const overlay = document.getElementById('auth-overlay');
+      const accountEmail = document.getElementById('account-email');
+
+      if (currentUser) {
+        overlay.classList.add('hidden');
+        accountEmail.textContent = currentUser.email || 'Signed in';
+        renderGenreChips();
+        setViewMode(displayMode);
+      } else {
+        overlay.classList.remove('hidden');
+        accountEmail.textContent = '';
+        document.getElementById('auth-email').focus();
+      }
+    }
+
+    function toggleAuthMode() {
+      authMode = authMode === 'login' ? 'signup' : 'login';
+
+      document.getElementById('auth-title').textContent =
+        authMode === 'login' ? 'Enter the Archives' : 'Create Your Archive';
+
+      document.getElementById('auth-subtitle').textContent =
+        authMode === 'login'
+          ? 'Sign in to keep your library connected to your account.'
+          : 'Create an account to keep your library safe and available across devices.';
+
+      document.getElementById('auth-submit').textContent =
+        authMode === 'login' ? 'Sign In' : 'Create Account';
+
+      document.getElementById('auth-switch').textContent =
+        authMode === 'login' ? 'Need an account? Create one' : 'Already have an account? Sign in';
+
+      document.getElementById('auth-reset').classList.toggle('hidden', authMode !== 'login');
+      clearAuthMessage();
+    }
+
+    function showAuthMessage(message, isError = false) {
+      const el = document.getElementById('auth-message');
+      el.textContent = message || '';
+      el.classList.toggle('error', isError);
+    }
+
+    function clearAuthMessage() {
+      showAuthMessage('');
+    }
+
+    async function submitEmailAuth() {
+      if (!sbClient) return showAuthMessage('Supabase is not configured.', true);
+
+      const email = document.getElementById('auth-email').value.trim();
+      const password = document.getElementById('auth-password').value;
+
+      if (!email || !password) {
+        return showAuthMessage('Enter both your email and password.', true);
+      }
+
+      if (password.length < 6) {
+        return showAuthMessage('Password must be at least 6 characters.', true);
+      }
+
+      clearAuthMessage();
+      const button = document.getElementById('auth-submit');
+      button.disabled = true;
+
+      try {
+        if (authMode === 'signup') {
+          const { data, error } = await sbClient.auth.signUp({
+            email,
+            password,
+            options: {
+              emailRedirectTo: window.location.origin
+            }
+          });
+
+          if (error) throw error;
+
+          if (data.session) {
+            showAuthMessage('Account created. Welcome to the Archives.');
+          } else {
+            showAuthMessage('Account created. Check your email to confirm it, then sign in.');
+          }
+        } else {
+          const { error } = await sbClient.auth.signInWithPassword({
+            email,
+            password
+          });
+
+          if (error) throw error;
+        }
+      } catch (error) {
+        showAuthMessage(error.message || 'Authentication failed.', true);
+      } finally {
+        button.disabled = false;
+      }
+    }
+
+    async function sendPasswordReset() {
+      if (!sbClient) return showAuthMessage('Supabase is not configured.', true);
+
+      const email = document.getElementById('auth-email').value.trim();
+
+      if (!email) {
+        return showAuthMessage('Enter your email address first.', true);
+      }
+
+      const { error } = await sbClient.auth.resetPasswordForEmail(email, {
+        redirectTo: window.location.origin
+      });
+
+      if (error) {
+        showAuthMessage(error.message || 'Could not send reset email.', true);
+      } else {
+        showAuthMessage('If that email has an account, a password-reset message has been sent.');
+      }
+    }
+
+    async function signOut() {
+      if (!sbClient) return;
+
+      if (!confirm('Log out? Your local browser copy will be cleared. Use Save to Cloud first if you want to keep it in your account.')) {
+        return;
+      }
+
+      const { error } = await sbClient.auth.signOut();
+      if (error) {
+        alert('Could not log out: ' + error.message);
+        return;
+      }
+
+      // Do not leave one user's local archive visible to the next user
+      // who signs into this browser.
+      const tx = db.transaction(["entries", "genres"], "readwrite");
+      tx.objectStore("entries").clear();
+      tx.objectStore("genres").clear();
+      tx.oncomplete = () => location.reload();
+    }
 
     function toTitleCase(str) { return str ? str.replace(/\b\w/g, char => char.toUpperCase()) : ""; }
     function applyTitleCase(input) {
@@ -1357,25 +1650,45 @@
 
     async function generateSyncCode() {
       if (!sbClient) return alert("Supabase not configured.");
+      if (!currentUser) return alert("Please sign in first.");
+
       const tx = db.transaction(["entries", "genres"], "readonly");
       const entries = await new Promise(r => tx.objectStore("entries").getAll().onsuccess = e => r(e.target.result));
       const genres = await new Promise(r => tx.objectStore("genres").getAll().onsuccess = e => r(e.target.result));
+
       const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
       let syncId = '';
-      for (let i = 0; i < 6; i++) syncId += chars.charAt(Math.floor(Math.random() * chars.length));
-      const { error } = await sbClient.from('sync_records').insert([{ id: syncId, payload: { entries, genres } }]);
-      if (error) return alert("Sync Failed: " + error.message);
+      for (let i = 0; i < 8; i++) syncId += chars.charAt(Math.floor(Math.random() * chars.length));
+
+      const { error } = await sbClient.from('sync_records').insert([{
+        id: syncId,
+        user_id: currentUser.id,
+        payload: { entries, genres }
+      }]);
+
+      if (error) return alert("Cloud save failed: " + error.message);
+
       document.getElementById('sync-code-input').value = syncId;
-      alert("Pushed. Code: " + syncId);
+      alert("Saved to your account. Sync code: " + syncId);
     }
 
     async function retrieveFromCloud() {
       if (!sbClient) return alert("Supabase not configured.");
+      if (!currentUser) return alert("Please sign in first.");
+
       const code = document.getElementById('sync-code-input').value.trim().toUpperCase();
-      if (!code) return alert("Enter code.");
-      const { data, error } = await sbClient.from('sync_records').select('payload').eq('id', code).single();
-      if (error || !data) return alert("Record not found.");
-      if (confirm("Overwrite local data?")) {
+      if (!code) return alert("Enter a sync code.");
+
+      const { data, error } = await sbClient
+        .from('sync_records')
+        .select('payload')
+        .eq('id', code)
+        .eq('user_id', currentUser.id)
+        .single();
+
+      if (error || !data) return alert("Record not found in your account.");
+
+      if (confirm("Overwrite local data with this cloud archive?")) {
         const tx = db.transaction(["entries", "genres"], "readwrite");
         tx.objectStore("entries").clear();
         tx.objectStore("genres").clear();
@@ -1386,6 +1699,8 @@
     }
 
     function exportArchive() {
+      if (!currentUser) return alert("Please sign in first.");
+
       const tx = db.transaction(["entries", "genres"], "readonly");
       const eReq = tx.objectStore("entries").getAll();
       const gReq = tx.objectStore("genres").getAll();
@@ -1396,6 +1711,8 @@
     }
 
     function importArchive(event) {
+      if (!currentUser) return alert("Please sign in first.");
+
       const file = event.target.files[0];
       if (!file) return;
       const reader = new FileReader();
@@ -1410,6 +1727,15 @@
       };
       reader.readAsText(file);
     }
+
+
+    document.getElementById('auth-password').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') submitEmailAuth();
+    });
+
+    document.getElementById('auth-email').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') document.getElementById('auth-password').focus();
+    });
 
     document.addEventListener('mousemove', e => {
       if (displayMode !== 'deck') return;
